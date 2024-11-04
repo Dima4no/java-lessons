@@ -1,0 +1,15 @@
+1. class Student
+    - name
+    - studentId
+    - subject
+
+
+2. class Subject
+    - title
+    - teacherName
+
+Getters/setters
+Constructor
+toString
+
+Main.java -> create 1 student and 1 subject and assign subject to student

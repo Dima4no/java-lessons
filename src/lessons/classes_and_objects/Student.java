@@ -3,7 +3,7 @@ package lessons.classes_and_objects;
 public class Student {
 
     int id;
-    String name;
+   private String name;
     String faculty;
 
     public Student(int studentId, String studentName, String studentFaculty) {
