@@ -9,12 +9,12 @@ public class Dog extends Animal {
         this.breed = breed;
     }
 
-    public String getBreed() {
-        return breed;
-    }
+    public String getBreed() {return breed;}
+
+    public void setBreed(String breed) {this.breed = breed;}
 
     @Override
-    public void makeSound() {
-        System.out.println("Woof!");
-    }
+    public String makeSound() {return("Woof!");}
+
+    public String toString() {return super.toString() + makeSound();}
 }

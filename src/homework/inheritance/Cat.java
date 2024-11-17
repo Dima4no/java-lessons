@@ -8,12 +8,12 @@ public class Cat extends Animal {
         this.color = color;
     }
 
-    public String getColor() {
-        return color;
-    }
+    public String getColor() {return color;}
+
+    public void setColor(String color) {this.color = color;}
 
     @Override
-    public void makeSound() {
-        System.out.println("Meow!");
-    }
+    public String makeSound() {return("Meow!");}
+
+    public String toString() {return(super.toString() + makeSound());}
 }
