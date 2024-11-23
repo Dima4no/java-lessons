@@ -15,7 +15,7 @@ public class Archer extends Character {
     public void attack(Character target) {
         if (arrows > 0) {
             System.out.println("Archer " + getName() + " shoots an arrow at " + target.getName() +
-                    ", dealing 15 damage! " + (arrows--) + " arrows left.");
+                    ", dealing 15 damage! " + (arrows - 1) + " arrows left.");
             target.setHealth(target.getHealth() - 15);
             arrows--;
         } else {
