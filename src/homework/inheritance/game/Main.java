@@ -1,6 +1,7 @@
 package homework.inheritance.game;
 
 public class Main {
+
     public static void main(String[] args) {
         Warrior aragorn = new Warrior("Aragorn", 100, 20);
         Archer legolas = new Archer("Legolas", 80, 10);

@@ -10,19 +10,31 @@ public class Character {
         this.health = health;
     }
 
-    public String getName() {return name;}
-    public int getHealth() {return health;}
+    public String getName() {
+        return name;
+    }
 
-    public void setName(String name) {this.name = name;}
-    public void setHealth(int health) {this.health = health;}
+    public int getHealth() {
+        return health;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setHealth(int health) {
+        this.health = health;
+    }
 
     public void attack(Character target) {
-        System.out.println("Character " + name + " attacks " + target.name  + "!");
+        System.out.println("Character " + name + " attacks " + target.name + "!");
         target.health -= 10;
     }
 
     public boolean isAlive() {
-        if (health > 0) {return true;} else {return false;}
+        // Так делать можно, но не стоит -- return health > 0 ? true :  false;
+        // Так делать хуже, чем строчка выше -- if (health > 0) {return true;} else {return false;}
+        return health > 0;
     }
 
     public void heal(int amount) {
@@ -33,6 +45,6 @@ public class Character {
     @Override
     public String toString() {
         return "Character: " + name + "\n" +
-                "Health: " + health;
+            "Health: " + health;
     }
 }

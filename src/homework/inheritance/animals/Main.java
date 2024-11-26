@@ -7,8 +7,8 @@ public class Main {
         Dog dog = new Dog("Buddy", 5, "shepherd");
         Cat cat = new Cat("Max", 3, "grey");
 
-        System.out.println(dog.toString());
+        System.out.println(dog);
 
-        System.out.println(cat.toString());
+        System.out.println(cat);
     }
 }

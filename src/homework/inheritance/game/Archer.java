@@ -9,14 +9,20 @@ public class Archer extends Character {
         this.arrows = arrows;
     }
 
-    public int getArrows() {return arrows;}
-    public void setArrows(int arrows) {this.arrows = arrows;}
+    public int getArrows() {
+        return arrows;
+    }
+
+    public void setArrows(int arrows) {
+        this.arrows = arrows;
+    }
 
     public void attack(Character target) {
         if (arrows > 0) {
             System.out.println("Archer " + getName() + " shoots an arrow at " + target.getName() +
-                    ", dealing 15 damage! " + (arrows - 1) + " arrows left.");
+                ", dealing 15 damage! " + (arrows - 1) + " arrows left.");
             target.setHealth(target.getHealth() - 15);
+            // arrows-- равносильно arrows = arrows - 1
             arrows--;
         } else {
             System.out.println("Archer " + getName() + " has no arrows left!");
