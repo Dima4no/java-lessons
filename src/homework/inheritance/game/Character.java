@@ -1,4 +1,4 @@
-package homework.inheritance;
+package homework.inheritance.game;
 
 public class Character {
 

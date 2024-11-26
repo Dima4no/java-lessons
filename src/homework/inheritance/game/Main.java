@@ -1,4 +1,4 @@
-package homework.inheritance;
+package homework.inheritance.game;
 
 public class Main {
     public static void main(String[] args) {

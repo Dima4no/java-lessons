@@ -1,4 +1,4 @@
-package homework.inheritance;
+package homework.inheritance.animals;
 
 public class Cat extends Animal {
     private String color;
