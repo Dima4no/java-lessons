@@ -1,4 +1,4 @@
-package homework.arrays_demo;
+package lessons.arrays_demo;
 
 public class ArraysDemo {
 
