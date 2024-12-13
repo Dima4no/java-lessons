@@ -1,5 +1,8 @@
 package homework.inheritance.animals;
 
+import lombok.Data;
+
+
 public class Animal {
 
     private String name;
