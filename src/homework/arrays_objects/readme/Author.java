@@ -20,6 +20,10 @@ public class Author {
     public void setName(String name) {this.name = name;}
     public void setBiography(String biography) {this.biography = biography;}
 
+    public UUID getId() {
+        return id;
+    }
+
     @Override
     public String toString() {
         return "Authors name is " + name + "\n" +

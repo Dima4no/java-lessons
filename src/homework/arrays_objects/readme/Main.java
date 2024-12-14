@@ -1,5 +1,7 @@
 package homework.arrays_objects.readme;
 
+import common.ArrayHelper;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -12,7 +14,9 @@ public class Main {
         library.addBook(new Book("1984", author1, 1949, true), 0);
         library.addBook(new Book("Brave New World", author2, 1932, true), 1);
         library.addBook(new Book("Harry Potter and the Philosopher's Stone", author3, 1997, true), 2);
+        library.addBook(new Book("Harry Potter and the ...", author3, 1997, true), 2);
 
-
+        library.printBooksList();
+        ArrayHelper.printArray(library.getBooksByAuthor(author3.getName()));
     }
 }
