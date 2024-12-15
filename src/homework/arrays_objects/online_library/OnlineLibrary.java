@@ -1,6 +1,5 @@
-package homework.arrays_objects.readme;
+package homework.arrays_objects.online_library;
 
-import java.util.Objects;
 import java.util.UUID;
 
 public class OnlineLibrary {
