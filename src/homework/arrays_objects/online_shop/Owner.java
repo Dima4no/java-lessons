@@ -8,8 +8,8 @@ public class Owner {
     private String name;
     private String contactInfo;
 
-    public Owner(UUID id, String name, String contactInfo) {
-        this.id = id;
+    public Owner(String name, String contactInfo) {
+        this.id = UUID.randomUUID();
         this.name = name;
         this.contactInfo = contactInfo;
     }
