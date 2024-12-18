@@ -15,14 +15,17 @@ public class OnlineShop {
         if(index < 0 || products[index] != null) {
             System.out.println("The product on this index is already exists or incorrect index!");
         }
-        if(index == products.length) {
+        if(index >= products.length) {
             growCapacity();
         }
         products[index] = product;
     }
 
-    public void addProduct(String name, Owner owner, double price, int index) {
-        Product product = new Product(name, owner, price);
+    public void addProduct(UUID id, String name, Owner owner, double price, int index) {
+        if(index >= products.length) {
+            growCapacity();
+        }
+        Product product = new Product(id, name, owner, price);
         addProduct(product, index);
     }
 
@@ -30,12 +33,12 @@ public class OnlineShop {
         Product[] newProducts = new Product[products.length + 1];
         for(int i = 0; i < products.length; i++) {
             newProducts[i] = products[i];
-            products = newProducts;
         }
+        products = newProducts;
     }
 
     public void updateProduct(Product product, int index) {
-        if(index > products.length) {
+        if(index >= products.length) {
             System.out.println("Invalid index: " + index);
         } else if(products[index] == null) {
             System.out.println("Product on index: " + index + " does not exist!");
@@ -54,6 +57,7 @@ public class OnlineShop {
         } else {
             System.out.println("The book with id: " + id + "does not exist!");
         }
+        printProductList();
     }
 
     public void printProductList() {
@@ -70,7 +74,7 @@ public class OnlineShop {
     public Product[] getProductsByOwner(String ownerName) {
         int size = countProductsByOwner(ownerName);
         if(size == 0) {
-            System.out.println("No books found by owner!");
+            System.out.println("No products found by owner!");
             return new Product[0];
         }
         Product[] result = new Product[size];
@@ -98,7 +102,7 @@ public class OnlineShop {
         }
         Product mostExpensive = products[0];
         for(int i = 0; i < products.length; i ++) {
-            if(mostExpensive.getPrice() < products[i].getPrice()) {
+            if(products[i].getPrice() > mostExpensive.getPrice()) {
                 mostExpensive = products[i];
             }
         }
@@ -111,7 +115,7 @@ public class OnlineShop {
         }
         Product leastExpensive = products[0];
         for(int i = 0; i < products.length; i++) {
-            if(leastExpensive.getPrice() < products[i].getPrice()) {
+            if(products[i].getPrice() < leastExpensive.getPrice()) {
                 leastExpensive = products[i];
             }
         }

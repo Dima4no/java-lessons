@@ -23,6 +23,6 @@ public class Owner {
 
     @Override
     public String toString() {
-        return "Owner's id is: " + id + " ,name is: " + name + " , contact information: " + contactInfo;
+        return "Owner id is: " + id + " , Owner name is: " + name + " , contact information: " + contactInfo;
     }
 }

@@ -10,7 +10,7 @@ public class Product {
     private double price;
     boolean isAvailable;
 
-    public Product(String name, Owner owner, double price) {
+    public Product(UUID id, String name, Owner owner, double price) {
         this.id = id;
         this.name = name;
         this.owner = owner;
@@ -29,6 +29,6 @@ public class Product {
 
     @Override
     public String toString() {
-        return "Product id is: " + id + " ,product name is: " + name + " ,owner's information: " + owner + " ,price: " + price;
+        return "Product id is: " + id + " , product name is: " + name + ", " + owner.toString() + " , price: " + price;
     }
 }
