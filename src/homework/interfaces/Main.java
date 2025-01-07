@@ -3,15 +3,15 @@ package homework.interfaces;
 public class Main {
     public static void main(String[] args) {
 
-        TodoList todoList = new TodoList(5);
+        TodoList todoList = new TodoList(2);
 
-        todoList.addTask(new WorkTask("To write a report!"));
-        todoList.addTask(new PersonalTask("Call to a doctor!"));
+        todoList.addTask(new WorkTask("Write a report!"));
+        todoList.addTask(new PersonalTask("Call the doctor!"));
         todoList.addTask(new ShoppingTask("apples", 5));
         todoList.addTask(new ShoppingTask("milk", 2));
 
 
-        System.out.println("List of tasks:");
+        System.out.println("List of tasks: ");
         todoList.printTasks();
 
 

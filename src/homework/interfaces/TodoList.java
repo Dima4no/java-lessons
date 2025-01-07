@@ -3,23 +3,23 @@ package homework.interfaces;
 public class TodoList {
 
     private TodoItem[] tasks;
-    private int initialCapacity;
+    private int capacity;
 
     public TodoList(int initialCapacity) {
         this.tasks = new TodoItem[initialCapacity];
+        this.capacity = capacity;
     }
 
     public void addTask(TodoItem task) {
-        int index = 0;
-        if(index > tasks.length) {
+        if(capacity >= tasks.length) {
             expandArray();
         }
-        tasks[index] = task;
-        index++;
+        tasks[capacity] = task;
+        capacity++;
     }
 
     public void completeTask(int index) {
-        if(index >= 0 && index < tasks.length) {
+        if(index >= 0 && index < capacity) {
             tasks[index].complete();
         } else {
             System.out.println("This index is incorrect!");
@@ -27,16 +27,16 @@ public class TodoList {
     }
 
     public void printTasks() {
-        for(int i = 0; i <= tasks.length; i++) {
+        for(int i = 0; i < capacity; i++) {
             TodoItem task = tasks[i];
             if(task != null) {
-                System.out.println(task.getDescription() + ": " + task.isCompleted());
+                System.out.println(task.getDescription() + ", Current status:  " + task.isCompleted());
             }
         }
     }
 
     public void expandArray() {
-        TodoItem[] newTasks = new TodoItem[tasks.length + 1];
+        TodoItem[] newTasks = new TodoItem[tasks.length * 2];
         for(int i = 0; i < tasks.length; i++) {
             newTasks[i] = tasks[i];
         }
