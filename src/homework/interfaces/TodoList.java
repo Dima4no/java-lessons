@@ -18,11 +18,11 @@ public class TodoList {
         capacity++;
     }
 
-    public void completeTask(int index) {
+    public void completeTask(int index) throws IncorrectIndexException {
         if(index >= 0 && index < capacity) {
             tasks[index].complete();
         } else {
-            System.out.println("This index is incorrect!");
+            throw new IncorrectIndexException("Index " + index + " is incorrect!");
         }
     }
 
