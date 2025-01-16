@@ -23,5 +23,6 @@ public class Main {
 
         System.out.println("\nUpdated list of tasks:");
         todoList.printTasks();
+
     }
 }
