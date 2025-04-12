@@ -7,6 +7,10 @@ public class Main {
         ProductOnSale productOnSale = new ProductOnSale("Smartphone", 500, "Electronics", 100);
         System.out.println(product.toString());
         System.out.println(productOnSale.toString());
+
+        // BASE         CHILD
+        Product p = new ProductOnSale("Tablet", 300, "Electronics", 50);
+        ( (ProductOnSale) p).getSale();
     }
 
 }

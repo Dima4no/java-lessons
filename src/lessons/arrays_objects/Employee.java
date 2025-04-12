@@ -1,5 +1,6 @@
 package lessons.arrays_objects;
 
+import java.util.Objects;
 import java.util.UUID;
 import lessons.encapsulation.Department;
 
@@ -53,5 +54,22 @@ public class Employee {
             ", salary=" + salary +
             ", department=" + department +
             '}';
+    }
+
+    @Override
+    public boolean equals(Object otherObject) {
+        if (this == otherObject) {
+            return true;
+        }
+        if (!(otherObject instanceof Employee employee)) {
+            return false;
+        }
+        // return Objects.equals(id, employee.id);
+        return id.equals(employee.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
     }
 }
