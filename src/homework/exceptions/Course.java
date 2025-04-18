@@ -4,12 +4,13 @@ public class Course {
     private String courseId;
     private String courseName;
     private int maxCapacity;
-    private int currentEnrollment = 0;
+    private int currentEnrollment;
 
     public Course(String courseId, String courseName, int maxCapacity) {
         this.maxCapacity = maxCapacity;
         this.courseId = courseId;
         this.courseName = courseName;
+        this.currentEnrollment = 0;
     }
 
     public String getCourseId() {

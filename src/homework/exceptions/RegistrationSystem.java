@@ -6,8 +6,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class RegistrationSystem {
-    private Map<String, Course> courses = new HashMap<>();
-    private Map<String, Student> students = new HashMap<>();
+    private Map<String, Course>courses;
+    private Map<String, Student> students;
 
     public RegistrationSystem(Map<String, Course> courses, Map<String, Student> students) {
         this.courses = courses;

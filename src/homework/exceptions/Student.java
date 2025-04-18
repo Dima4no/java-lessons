@@ -6,12 +6,14 @@ import java.util.ArrayList;
 public class Student {
     private String studentId;
     private String name;
-    private List<String> completedCourses = new ArrayList<>();
-    private List<String> currentCourses = new ArrayList<>();
+    private List<String> completedCourses;
+    private List<String> currentCourses;
 
     public Student(String studentId, String name) {
         this.studentId = studentId;
         this.name = name;
+        this.currentCourses = new ArrayList<>();
+        this.completedCourses = new ArrayList<>();
     }
 
     public String getStudentId() {
