@@ -10,11 +10,13 @@ public class MyCustomList<E> implements List<E> {
     private E[] elements;
     private int initialCapacity;
     private int currentSize;
+    private int currentIndex;
 
     public MyCustomList(int initialCapacity) {
         this.initialCapacity = initialCapacity;
         this.elements = (E[]) new Object[initialCapacity];
         this.currentSize = 0;
+        this.currentIndex = 0;
     }
 
     public MyCustomList(E[] objects) {
@@ -24,21 +26,19 @@ public class MyCustomList<E> implements List<E> {
         this.initialCapacity = objects.length;
         this.elements = objects;
         this.currentSize = objects.length;
+        this.currentIndex = 0;
     }
 
-    // TODO: Implement this
     @Override
     public int size() {
         return elements.length;
     }
 
-    // TODO: Implement this
     @Override
     public boolean isEmpty() {
         return elements.length == 0;
     }
 
-    // TODO: Implement this
     @Override
     public boolean contains(Object o) {
         validateElementNotNull(o);
@@ -52,7 +52,7 @@ public class MyCustomList<E> implements List<E> {
 
     @Override
     public Iterator<E> iterator() {
-        return null;
+        return new CustomListIterator<>(elements);
     }
 
     @Override
@@ -65,14 +65,29 @@ public class MyCustomList<E> implements List<E> {
         return null;
     }
 
-    // TODO: Implement this
     @Override
     public boolean add(E e) {
-        return false;
+        validateElementNotNull(e);
+        if (currentIndex < elements.length) {
+            elements[currentIndex] = e;
+            currentIndex++;
+        } else {
+            E[] newElements = (E[]) new Object[elements.length * 2];
+            // System.arraycopy(что копировать, с какого индкеса, куда копировать, на какой индекс, сколько копировать)
+            System.arraycopy(elements, 0, newElements, 0, elements.length);
+            elements = newElements;
+            elements[currentIndex] = e;
+            currentIndex++;
+        }
+        return true;
     }
 
+    // TODO: Implement this
     @Override
     public boolean remove(Object o) {
+        // 1. Если удаляемый элемент находится на 0ом индексе - А В С - все элементы сдвигаются влево, остается 2 элемента - B C
+        // 2. Если удаляемый элемент находится на последнем индексе - A B C - все элементы остаются на своих местах, удаляем последний элемент, делаем null
+        // 3. Если удаляемый элемент находится в середине - A B C D - все элементы сдвигаются влево, остается A B D
         return false;
     }
 
@@ -92,6 +107,7 @@ public class MyCustomList<E> implements List<E> {
         return false;
     }
 
+    // TODO: Implement this
     @Override
     public boolean removeAll(Collection<?> collection) {
         return false;
@@ -114,14 +130,17 @@ public class MyCustomList<E> implements List<E> {
         return null;
     }
 
+    // TODO: Implement this
     @Override
     public E set(int i, E e) {
         return null;
     }
 
+    // TODO: Implement this
     @Override
     public void add(int i, E e) {
-
+        // 1. Если индекс равен 0 и он занят, сдвигаем все вправо, если не занят, добавляем элемент на 0 индекс
+        // 2. Если в середину, и этот индекс также занят, тоже сдвигаем все вправо, если не занят, добавляем элемент на этот индекс
     }
 
     @Override
@@ -129,7 +148,7 @@ public class MyCustomList<E> implements List<E> {
         return null;
     }
 
-    // TODO: Implement this
+
     @Override
     public int indexOf(Object o) {
         return 0;
