@@ -8,7 +8,6 @@ import java.util.ListIterator;
 public class MyCustomList<E> implements List<E> {
 
     private E[] elements;
-
     private int initialCapacity;
     private int currentSize;
 
@@ -27,18 +26,25 @@ public class MyCustomList<E> implements List<E> {
     // TODO: Implement this
     @Override
     public int size() {
-        return 0;
-    }
+        checkArray(elements);
+        return elements.length; }
 
     // TODO: Implement this
     @Override
     public boolean isEmpty() {
-        return false;
+        checkArray(elements);
+        return elements.length == 0;
     }
 
     // TODO: Implement this
     @Override
     public boolean contains(Object o) {
+        checkElement(o);
+        for (int i = 0; i <= currentSize; i++) {
+            if ( elements[i].equals(o)) {
+                return true;
+            }
+        }
         return false;
     }
 
@@ -145,5 +151,17 @@ public class MyCustomList<E> implements List<E> {
     @Override
     public List<E> subList(int i, int i1) {
         return List.of();
+    }
+
+    public static void checkArray(Object[] elements) {
+        if (elements == null) {
+            throw new NullPointerException("Array can not be null!");
+        }
+    }
+
+    public static <E> void checkElement(E e) {
+        if (e == null) {
+            throw new NullPointerException("Element can not be null!");
+        }
     }
 }
