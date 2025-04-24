@@ -18,6 +18,9 @@ public class MyCustomList<E> implements List<E> {
     }
 
     public MyCustomList(E[] objects) {
+        if (elements == null) {
+            throw new NullPointerException("Array can not be null!");
+        }
         this.initialCapacity = objects.length;
         this.elements = objects;
         this.currentSize = objects.length;
@@ -26,22 +29,21 @@ public class MyCustomList<E> implements List<E> {
     // TODO: Implement this
     @Override
     public int size() {
-        checkArray(elements);
-        return elements.length; }
+        return elements.length;
+    }
 
     // TODO: Implement this
     @Override
     public boolean isEmpty() {
-        checkArray(elements);
         return elements.length == 0;
     }
 
     // TODO: Implement this
     @Override
     public boolean contains(Object o) {
-        checkElement(o);
+        validateElementNotNull(o);
         for (int i = 0; i <= currentSize; i++) {
-            if ( elements[i].equals(o)) {
+            if (elements[i].equals(o)) {
                 return true;
             }
         }
@@ -153,13 +155,7 @@ public class MyCustomList<E> implements List<E> {
         return List.of();
     }
 
-    public static void checkArray(Object[] elements) {
-        if (elements == null) {
-            throw new NullPointerException("Array can not be null!");
-        }
-    }
-
-    public static <E> void checkElement(E e) {
+    private static <E> void validateElementNotNull(E e) {
         if (e == null) {
             throw new NullPointerException("Element can not be null!");
         }
