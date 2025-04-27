@@ -1,5 +1,6 @@
 package homework.custom_list;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -18,7 +19,7 @@ public class MyCustomList<E> implements List<E> {
     }
 
     public MyCustomList(E[] objects) {
-        if (elements == null) {
+        if (objects == null) {
             throw new NullPointerException("Array can not be null!");
         }
         this.initialCapacity = objects.length;
@@ -42,8 +43,8 @@ public class MyCustomList<E> implements List<E> {
     @Override
     public boolean contains(Object o) {
         validateElementNotNull(o);
-        for (int i = 0; i <= currentSize; i++) {
-            if (elements[i].equals(o)) {
+        for (Object element : elements) {
+            if (element.equals(o)) {
                 return true;
             }
         }
@@ -68,7 +69,11 @@ public class MyCustomList<E> implements List<E> {
     // TODO: Implement this
     @Override
     public boolean add(E e) {
-        return false;
+        if (currentSize == elements.length) {
+            growCapacity();
+        }
+        elements[currentSize++] = e;
+        return true;
     }
 
     @Override
@@ -79,7 +84,15 @@ public class MyCustomList<E> implements List<E> {
     // TODO: Implement this
     @Override
     public boolean containsAll(Collection<?> collection) {
-        return false;
+        if (collection == null) {
+            throw new NullPointerException("Collection must not be null!");
+        }
+        for (Object item : collection) {
+            if (!contains(item)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override
@@ -105,13 +118,19 @@ public class MyCustomList<E> implements List<E> {
     // TODO: Implement this
     @Override
     public void clear() {
-
+        for (int i = 0; i < elements.length; i++) {
+            elements[i] = null;
+        }
+        currentSize = 0;
     }
 
     // TODO: Implement this
     @Override
     public E get(int i) {
-        return null;
+        if (i < 0 || i >= elements.length) {
+            throw new IllegalArgumentException("Index can not be less than 0 or bigger length of elements.");
+        }
+        return elements[i];
     }
 
     @Override
@@ -132,7 +151,12 @@ public class MyCustomList<E> implements List<E> {
     // TODO: Implement this
     @Override
     public int indexOf(Object o) {
-        return 0;
+        for (int i = 0; i < elements.length; i++) {
+            if (elements[i].equals(o)) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     @Override
@@ -159,5 +183,10 @@ public class MyCustomList<E> implements List<E> {
         if (e == null) {
             throw new NullPointerException("Element can not be null!");
         }
+    }
+
+    private void growCapacity() {
+        int newCapacity = elements.length * 2;
+        elements = Arrays.copyOf(elements, newCapacity);
     }
 }
