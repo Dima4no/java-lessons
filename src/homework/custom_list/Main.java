@@ -11,7 +11,7 @@ public class Main {
         System.out.println("Size: " + myCustomList.size());
         System.out.println("Is Empty: " + myCustomList.isEmpty());
 
-       CustomListIterator<String> iterator = (CustomListIterator<String>) myCustomList.iterator();
+       CustomIterator<String> iterator = (CustomIterator<String>) myCustomList.iterator();
 
        while(iterator.hasNext()){
            System.out.println(iterator.next());

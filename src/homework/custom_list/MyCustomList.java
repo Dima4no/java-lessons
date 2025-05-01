@@ -52,7 +52,7 @@ public class MyCustomList<E> implements List<E> {
 
     @Override
     public Iterator<E> iterator() {
-        return new CustomListIterator<>(elements);
+        return new CustomIterator<>(elements);
     }
 
     @Override
@@ -113,6 +113,8 @@ public class MyCustomList<E> implements List<E> {
         return false;
     }
 
+    // TODO: Implement this
+    // удаляет из листа все элементы, которые не присутствуют в переданном коллекции
     @Override
     public boolean retainAll(Collection<?> collection) {
         return false;
@@ -145,15 +147,29 @@ public class MyCustomList<E> implements List<E> {
 
     @Override
     public E remove(int i) {
-        return null;
+        if (i < 0 || i > elements.length) {
+            throw new IndexOutOfBoundsException();
+        } else {
+            E element = elements[i];
+            if (i == 0) {
+                System.arraycopy(elements, 1, elements, 0, elements.length);
+            } else if (i == elements.length - 1) {
+                elements[i] = null;
+            } else {
+                System.arraycopy(elements, i + 1, elements, i, elements.length);
+            }
+            currentSize--;
+            return element;
+        }
     }
 
-
+    // TODO: проверить есть ли этот обьект с помощью contains метода и если да, вернуть индекс пройдясь по листу циклом
     @Override
     public int indexOf(Object o) {
         return 0;
     }
 
+    // TODO: проверить есть ли этот обьект с помощью contains метода и если да, вернуть ПОСЛЕДНИЙ индекс пройдясь по листу циклом
     @Override
     public int lastIndexOf(Object o) {
         return 0;
@@ -161,14 +177,15 @@ public class MyCustomList<E> implements List<E> {
 
     @Override
     public ListIterator<E> listIterator() {
-        return null;
+        return new CustomListIterator<>(elements);
     }
 
     @Override
     public ListIterator<E> listIterator(int i) {
-        return null;
+        throw new UnsupportedOperationException("Not implemented");
     }
 
+    // TODO: возвращает кусок листа с индекса i по индекс i1
     @Override
     public List<E> subList(int i, int i1) {
         return List.of();
