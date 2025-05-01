@@ -14,13 +14,23 @@ public class MyCustomListTest {
     @Test
     public void testSize_WithSizeFive() {
         myCustomList = new MyCustomList<>(5);
-        assertEquals(5, myCustomList.size());
+        myCustomList.add("apple");
+        myCustomList.add("banana");
+        myCustomList.add("coconut");
+        assertEquals(3, myCustomList.size());
     }
 
     @Test
     public void testIsEmpty_WithEmptyArray() {
-        myCustomList = new MyCustomList<>(0);
+        myCustomList = new MyCustomList<>(1);
         assertTrue(myCustomList.isEmpty());
+    }
+
+    @Test
+    public void testIsEmpty_WithOneElement() {
+        myCustomList = new MyCustomList<>(1);
+        myCustomList.add("apple");
+        assertFalse(myCustomList.isEmpty());
     }
 
     @Test
@@ -42,7 +52,7 @@ public class MyCustomListTest {
         String[] fruits = new String[] {"apple", "banana", "coconut"};
         MyCustomList<String> myCustomList = new MyCustomList<>(fruits);
         assertTrue(myCustomList.add("durian"));
-        assertEquals(6, myCustomList.size());
+        assertEquals(4, myCustomList.size());
     }
 
     @Test
@@ -51,5 +61,13 @@ public class MyCustomListTest {
         MyCustomList<String> myCustomList = new MyCustomList<>(fruits);
         List<String> test = new ArrayList<>(List.of("banana", "coconut"));
         assertTrue(myCustomList.containsAll(test));
+    }
+
+    @Test
+    public void testClear() {
+        String[] fruits = new String[] {"apple", "banana", "coconut"};
+        MyCustomList<String> myCustomList = new MyCustomList<>(fruits);
+        myCustomList.clear();
+        assertEquals(0, myCustomList.size());
     }
 }

@@ -30,13 +30,13 @@ public class MyCustomList<E> implements List<E> {
     // TODO: Implement this
     @Override
     public int size() {
-        return elements.length;
+        return currentSize;
     }
 
     // TODO: Implement this
     @Override
     public boolean isEmpty() {
-        return elements.length == 0;
+        return currentSize == 0;
     }
 
     // TODO: Implement this
@@ -118,7 +118,7 @@ public class MyCustomList<E> implements List<E> {
     // TODO: Implement this
     @Override
     public void clear() {
-        for (int i = 0; i < elements.length; i++) {
+        for (int i = 0; i < currentSize; i++) {
             elements[i] = null;
         }
         currentSize = 0;
