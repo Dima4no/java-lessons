@@ -11,11 +11,13 @@ public class MyCustomList<E> implements List<E> {
     private E[] elements;
     private int initialCapacity;
     private int currentSize;
+    private int currentIndex;
 
     public MyCustomList(int initialCapacity) {
         this.initialCapacity = initialCapacity;
         this.elements = (E[]) new Object[initialCapacity];
         this.currentSize = 0;
+        this.currentIndex = 0;
     }
 
     public MyCustomList(E[] objects) {
@@ -25,21 +27,19 @@ public class MyCustomList<E> implements List<E> {
         this.initialCapacity = objects.length;
         this.elements = objects;
         this.currentSize = objects.length;
+        this.currentIndex = 0;
     }
 
-    // TODO: Implement this
     @Override
     public int size() {
         return currentSize;
     }
 
-    // TODO: Implement this
     @Override
     public boolean isEmpty() {
         return currentSize == 0;
     }
 
-    // TODO: Implement this
     @Override
     public boolean contains(Object o) {
         validateElementNotNull(o);
@@ -53,7 +53,7 @@ public class MyCustomList<E> implements List<E> {
 
     @Override
     public Iterator<E> iterator() {
-        return null;
+        return new CustomIterator<>(elements);
     }
 
     @Override
@@ -66,9 +66,9 @@ public class MyCustomList<E> implements List<E> {
         return null;
     }
 
-    // TODO: Implement this
     @Override
     public boolean add(E e) {
+        validateElementNotNull(e);
         if (currentSize == elements.length) {
             growCapacity();
         }
@@ -76,8 +76,12 @@ public class MyCustomList<E> implements List<E> {
         return true;
     }
 
+    // TODO: Implement this
     @Override
     public boolean remove(Object o) {
+        // 1. Если удаляемый элемент находится на 0ом индексе - А В С - все элементы сдвигаются влево, остается 2 элемента - B C
+        // 2. Если удаляемый элемент находится на последнем индексе - A B C - все элементы остаются на своих местах, удаляем последний элемент, делаем null
+        // 3. Если удаляемый элемент находится в середине - A B C D - все элементы сдвигаются влево, остается A B D
         return false;
     }
 
@@ -105,11 +109,14 @@ public class MyCustomList<E> implements List<E> {
         return false;
     }
 
+    // TODO: Implement this
     @Override
     public boolean removeAll(Collection<?> collection) {
         return false;
     }
 
+    // TODO: Implement this
+    // удаляет из листа все элементы, которые не присутствуют в переданном коллекции
     @Override
     public boolean retainAll(Collection<?> collection) {
         return false;
@@ -133,22 +140,38 @@ public class MyCustomList<E> implements List<E> {
         return elements[i];
     }
 
+    // TODO: Implement this
     @Override
     public E set(int i, E e) {
         return null;
     }
 
+    // TODO: Implement this
     @Override
     public void add(int i, E e) {
-
+        // 1. Если индекс равен 0 и он занят, сдвигаем все вправо, если не занят, добавляем элемент на 0 индекс
+        // 2. Если в середину, и этот индекс также занят, тоже сдвигаем все вправо, если не занят, добавляем элемент на этот индекс
     }
 
     @Override
     public E remove(int i) {
-        return null;
+        if (i < 0 || i > elements.length) {
+            throw new IndexOutOfBoundsException();
+        } else {
+            E element = elements[i];
+            if (i == 0) {
+                System.arraycopy(elements, 1, elements, 0, elements.length);
+            } else if (i == elements.length - 1) {
+                elements[i] = null;
+            } else {
+                System.arraycopy(elements, i + 1, elements, i, elements.length);
+            }
+            currentSize--;
+            return element;
+        }
     }
 
-    // TODO: Implement this
+    // TODO: проверить есть ли этот обьект с помощью contains метода и если да, вернуть индекс пройдясь по листу циклом
     @Override
     public int indexOf(Object o) {
         for (int i = 0; i < elements.length; i++) {
@@ -159,6 +182,7 @@ public class MyCustomList<E> implements List<E> {
         return -1;
     }
 
+    // TODO: проверить есть ли этот обьект с помощью contains метода и если да, вернуть ПОСЛЕДНИЙ индекс пройдясь по листу циклом
     @Override
     public int lastIndexOf(Object o) {
         return 0;
@@ -166,14 +190,15 @@ public class MyCustomList<E> implements List<E> {
 
     @Override
     public ListIterator<E> listIterator() {
-        return null;
+        return new CustomListIterator<>(elements);
     }
 
     @Override
     public ListIterator<E> listIterator(int i) {
-        return null;
+        throw new UnsupportedOperationException("Not implemented");
     }
 
+    // TODO: возвращает кусок листа с индекса i по индекс i1
     @Override
     public List<E> subList(int i, int i1) {
         return List.of();
