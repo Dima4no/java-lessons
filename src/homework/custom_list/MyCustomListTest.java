@@ -48,6 +48,13 @@ public class MyCustomListTest {
     }
 
     @Test
+    public void testSize_WithNonDefaultConstructor(){
+        String[] fruits = new String[] {"apple", "banana", "coconut"};
+        MyCustomList<String> myCustomList = new MyCustomList<>(fruits);
+        assertEquals(3, myCustomList.size());
+    }
+
+    @Test
     public void testAdd_WithNewElement() {
         String[] fruits = new String[] {"apple", "banana", "coconut"};
         MyCustomList<String> myCustomList = new MyCustomList<>(fruits);

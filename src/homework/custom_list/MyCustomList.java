@@ -76,7 +76,6 @@ public class MyCustomList<E> implements List<E> {
         return true;
     }
 
-    // TODO: Implement this
     @Override
     public boolean remove(Object o) {
         int index = indexOf(o);
@@ -93,7 +92,6 @@ public class MyCustomList<E> implements List<E> {
         return true;
     }
 
-    // TODO: Implement this
     @Override
     public boolean containsAll(Collection<?> collection) {
         if (collection == null) {
@@ -117,29 +115,24 @@ public class MyCustomList<E> implements List<E> {
         return false;
     }
 
-    // TODO: Implement this
     @Override
     public boolean removeAll(Collection<?> collection) {
-        boolean marker = false;
-        Iterator<E> it = this.iterator();
-        while (it.hasNext()) {
-            E element = it.next();
-            if (contains(element)) {
-                remove(element);
-                marker = true;
-            }
+        for (Object item : collection) {
+            remove(item);
         }
-        return marker;
+        return true;
     }
 
     // TODO: Implement this
     // удаляет из листа все элементы, которые не присутствуют в переданной коллекции
+    // elements [A, B, C]
+    // collection: [C, D, E]
+    // result: [C]
     @Override
     public boolean retainAll(Collection<?> collection) {
         return false;
     }
 
-    // TODO: Implement this
     @Override
     public void clear() {
         for (int i = 0; i < currentSize; i++) {
@@ -148,7 +141,6 @@ public class MyCustomList<E> implements List<E> {
         currentSize = 0;
     }
 
-    // TODO: Implement this
     @Override
     public E get(int i) {
         if (i < 0 || i >= elements.length) {
@@ -158,12 +150,16 @@ public class MyCustomList<E> implements List<E> {
     }
 
     // TODO: Implement this
+    // заменяем значение ячейки по индексу, если пустая - добавляем, если нет - заменяем
     @Override
     public E set(int i, E e) {
         return null;
     }
 
     // TODO: Implement this
+    // 1. A, B, -> add(2, 'C') -> A, B, C
+    // 2. A, B, -> add(0, 'C') -> C, A, B
+    // 3. A, B, -> add(1, 'C') -> A, C, B
     @Override
     public void add(int i, E e) {
         // 1. Если индекс равен 0 и он занят, сдвигаем все вправо, если не занят, добавляем элемент на 0 индекс
@@ -188,7 +184,6 @@ public class MyCustomList<E> implements List<E> {
         }
     }
 
-    // TODO: проверить есть ли этот обьект с помощью contains метода и если да, вернуть индекс пройдясь по листу циклом
     @Override
     public int indexOf(Object o) {
         for (int i = 0; i < elements.length; i++) {
@@ -199,7 +194,7 @@ public class MyCustomList<E> implements List<E> {
         return -1;
     }
 
-    // TODO: проверить есть ли этот обьект с помощью contains метода и если да, вернуть ПОСЛЕДНИЙ индекс пройдясь по листу циклом
+    // TODO: вернуть ПОСЛЕДНИЙ индекс пройдясь по листу циклом, если не нашли - вернуть -1
     @Override
     public int lastIndexOf(Object o) {
         return 0;

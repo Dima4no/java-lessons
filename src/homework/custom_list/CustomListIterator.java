@@ -7,6 +7,8 @@ public class CustomListIterator<E> implements ListIterator<E> {
 
     private E elements[];
     private int currentIndex;
+    private int lastReturnedIndex = -1;  // Track the index of the last element returned
+    private boolean canRemove = false;   // Track if remove() can be called
 
     public CustomListIterator(E[] elements) {
         this.elements = elements;
@@ -21,6 +23,8 @@ public class CustomListIterator<E> implements ListIterator<E> {
     @Override
     public E next() {
         if(hasNext()){
+            lastReturnedIndex = currentIndex;
+            canRemove = true;
             return elements[currentIndex++];
         }
         throw new NoSuchElementException("No such element!");
@@ -34,7 +38,10 @@ public class CustomListIterator<E> implements ListIterator<E> {
     @Override
     public E previous() {
         if(hasPrevious()){
-            return elements[currentIndex--];
+            currentIndex--;
+            lastReturnedIndex = currentIndex;
+            canRemove = true;
+            return elements[currentIndex];
         }
         throw new NoSuchElementException("No such element!");
     }
@@ -51,7 +58,7 @@ public class CustomListIterator<E> implements ListIterator<E> {
 
     @Override
     public void remove() {
-        throw new UnsupportedOperationException("Remove is not supported from this implementation!");
+       throw new UnsupportedOperationException("Remove is not supported from this implementation!");
     }
 
     @Override
