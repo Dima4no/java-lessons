@@ -58,7 +58,7 @@ public class MyCustomList<E> implements List<E> {
 
     @Override
     public Object[] toArray() {
-        return new Object[0];
+        return Arrays.copyOf(elements, currentSize);
     }
 
     @Override
@@ -79,10 +79,18 @@ public class MyCustomList<E> implements List<E> {
     // TODO: Implement this
     @Override
     public boolean remove(Object o) {
-        // 1. Если удаляемый элемент находится на 0ом индексе - А В С - все элементы сдвигаются влево, остается 2 элемента - B C
-        // 2. Если удаляемый элемент находится на последнем индексе - A B C - все элементы остаются на своих местах, удаляем последний элемент, делаем null
-        // 3. Если удаляемый элемент находится в середине - A B C D - все элементы сдвигаются влево, остается A B D
-        return false;
+        int index = indexOf(o);
+        if (index == -1) {
+            return false;
+        }
+        if (index >= 0 && index < currentSize - 1) {
+            System.arraycopy(elements, index + 1, elements, index, currentSize - index - 1);
+        }
+        if (index == currentSize - 1) {
+            elements[index] = null;
+        }
+        currentSize--;
+        return true;
     }
 
     // TODO: Implement this
@@ -112,11 +120,12 @@ public class MyCustomList<E> implements List<E> {
     // TODO: Implement this
     @Override
     public boolean removeAll(Collection<?> collection) {
+
         return false;
     }
 
     // TODO: Implement this
-    // удаляет из листа все элементы, которые не присутствуют в переданном коллекции
+    // удаляет из листа все элементы, которые не присутствуют в переданной коллекции
     @Override
     public boolean retainAll(Collection<?> collection) {
         return false;
