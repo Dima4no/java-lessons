@@ -120,8 +120,16 @@ public class MyCustomList<E> implements List<E> {
     // TODO: Implement this
     @Override
     public boolean removeAll(Collection<?> collection) {
-
-        return false;
+        boolean marker = false;
+        Iterator<E> it = this.iterator();
+        while (it.hasNext()) {
+            E element = it.next();
+            if (contains(element)) {
+                remove(element);
+                marker = true;
+            }
+        }
+        return marker;
     }
 
     // TODO: Implement this
