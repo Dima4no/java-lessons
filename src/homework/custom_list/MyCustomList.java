@@ -1,10 +1,6 @@
 package homework.custom_list;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
+import java.util.*;
 
 public class MyCustomList<E> implements List<E> {
 
@@ -117,10 +113,13 @@ public class MyCustomList<E> implements List<E> {
 
     @Override
     public boolean removeAll(Collection<?> collection) {
+        boolean marker = false;
         for (Object item : collection) {
-            remove(item);
+            while(remove(item)) {
+                marker = true;
+            }
         }
-        return true;
+        return marker;
     }
 
     // TODO: Implement this
@@ -130,7 +129,21 @@ public class MyCustomList<E> implements List<E> {
     // result: [C]
     @Override
     public boolean retainAll(Collection<?> collection) {
-        return false;
+        E[] result =(E[]) new Object[currentSize];
+        int index = 0;
+        boolean modified = false;
+
+        for (int i = 0; i < currentSize; i++) {
+           if (collection.contains(elements[i])) {
+               result[index++] = elements[i];
+           } else {
+             modified = true;
+           }
+        }
+
+        elements = result;
+        currentSize = index;
+        return modified;
     }
 
     @Override
@@ -153,7 +166,13 @@ public class MyCustomList<E> implements List<E> {
     // заменяем значение ячейки по индексу, если пустая - добавляем, если нет - заменяем
     @Override
     public E set(int i, E e) {
-        return null;
+        validateElementNotNull(e);
+        if (i < 0 || i >= currentSize) {
+            throw new IndexOutOfBoundsException("Index: " + i + " is not correct!");
+        }
+        E prewValue = elements[i];
+        elements[i] = e;
+        return prewValue;
     }
 
     // TODO: Implement this
@@ -164,6 +183,20 @@ public class MyCustomList<E> implements List<E> {
     public void add(int i, E e) {
         // 1. Если индекс равен 0 и он занят, сдвигаем все вправо, если не занят, добавляем элемент на 0 индекс
         // 2. Если в середину, и этот индекс также занят, тоже сдвигаем все вправо, если не занят, добавляем элемент на этот индекс
+        validateElementNotNull(e);
+
+        if (i < 0 || i > currentSize) {
+            throw new IndexOutOfBoundsException("Index: " + i + " is not correct!");
+        }
+
+        if (currentSize == elements.length) {
+            growCapacity();
+        }
+
+        System.arraycopy(elements, i, elements, i + 1, currentSize - i);
+
+        elements[i] = e;
+        currentSize++;
     }
 
     @Override
@@ -197,7 +230,12 @@ public class MyCustomList<E> implements List<E> {
     // TODO: вернуть ПОСЛЕДНИЙ индекс пройдясь по листу циклом, если не нашли - вернуть -1
     @Override
     public int lastIndexOf(Object o) {
-        return 0;
+        for (int i = currentSize - 1; i >= 0; i--) {
+            if (Objects.equals(elements[i], o)) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     @Override
@@ -213,7 +251,14 @@ public class MyCustomList<E> implements List<E> {
     // TODO: возвращает кусок листа с индекса i по индекс i1
     @Override
     public List<E> subList(int i, int i1) {
-        return List.of();
+        if (i < 0 || i > currentSize || i1 < 0 || i1 > currentSize || i > i1) {
+            throw new IndexOutOfBoundsException("One of your indices is not correct!");
+        }
+        MyCustomList<E> result = new MyCustomList<>(i1 - i);
+        for (int j = i; j < i1; j++) {
+            result.add(elements[j]);
+        }
+        return result;
     }
 
     private static <E> void validateElementNotNull(E e) {
