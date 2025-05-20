@@ -113,10 +113,13 @@ public class MyCustomList<E> implements List<E> {
 
     @Override
     public boolean removeAll(Collection<?> collection) {
+        boolean marker = false;
         for (Object item : collection) {
-            remove(item);
+            while(remove(item)) {
+                marker = true;
+            }
         }
-        return true;
+        return marker;
     }
 
     // TODO: Implement this
