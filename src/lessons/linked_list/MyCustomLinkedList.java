@@ -1,9 +1,6 @@
 package lessons.linked_list;
 
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
+import java.util.*;
 
 /**
  * This class represents a singly linked list that implements a generic list interface.
@@ -65,9 +62,23 @@ public class MyCustomLinkedList<T> implements List<T> {
      * --- GET methods ---
      */
     @Override
-    public T get(int i) {
+    public T get(int index) {
         // TODO: implement this
-        return null;
+        if (amountOfNodes == 0) {
+            throw new NoSuchElementException("SingleLinkedList is empty!");
+        }
+
+        if (index < 0 || index >= amountOfNodes) {
+            throw new IndexOutOfBoundsException("Index must be between 0 and " + amountOfNodes);
+        }
+
+        Node<T> current = head;
+        int currentIndex = 0;
+        while (currentIndex < index) {
+            current = current.getNext();
+            currentIndex++;
+        }
+        return current.getData();
     }
 
     /*
@@ -101,6 +112,13 @@ public class MyCustomLinkedList<T> implements List<T> {
     @Override
     public boolean contains(Object objectToCheck) {
         // TODO: implement this
+        Node<T> current = head;
+        while (current != null) {
+            if (objectToCheck == null ? current.getData() == null : objectToCheck.equals(current.getData())) {
+                return true;
+            }
+            current = current.getNext();
+        }
         return false;
     }
 
@@ -108,7 +126,12 @@ public class MyCustomLinkedList<T> implements List<T> {
     @Override
     public boolean containsAll(Collection<?> collection) {
         // TODO: implement this
-        return false;
+        for (Object item : collection) {
+            if (!contains(item)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override
@@ -119,18 +142,43 @@ public class MyCustomLinkedList<T> implements List<T> {
     @Override
     public void clear() {
         // TODO: implement this
+        head = null;
+        amountOfNodes = 0;
     }
 
     @Override
     public T set(int index, T data) {
         // TODO: implement this
-        return null;
+        if (index < 0 || index >= amountOfNodes) {
+            throw new IndexOutOfBoundsException("Index " + index + " out of bounds for size " + amountOfNodes);
+        }
+
+        Node<T> current = head;
+        int currentIndex = 0;
+        while (currentIndex < index) {
+            current = current.getNext();
+            currentIndex++;
+        }
+        T prev = current.getData();
+        current.setData(data);
+        return prev;
     }
 
     @Override
     public int indexOf(Object objectToRetrieve) {
         // TODO: implement this
-        return 0;
+        Node<T> current = head;
+        int currentIndex = 0;
+
+        while (currentIndex < amountOfNodes) {
+            if (current.getData() == null ? objectToRetrieve == null
+                    : objectToRetrieve.equals(current.getData())) {
+                return currentIndex;
+            }
+            current = current.getNext();
+            currentIndex++;
+        }
+        return -1;
     }
 
     @Override
