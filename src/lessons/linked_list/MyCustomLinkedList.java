@@ -9,12 +9,13 @@ import java.util.*;
  */
 public class MyCustomLinkedList<T> implements List<T> {
 
-
     private Node<T> head;
+    private Node<T> tail;
     private int amountOfNodes;
 
     public MyCustomLinkedList() {
         this.head = null;
+        this.tail = null;
     }
 
     /*
@@ -29,7 +30,10 @@ public class MyCustomLinkedList<T> implements List<T> {
             while (current.getNext() != null) {
                 current = current.getNext();
             }
-            current.setNext(new Node<>(data));
+            Node<T> newNode = new Node<>(data);
+            current.setNext(newNode);
+            tail = newNode;
+
         }
         amountOfNodes++;
         return true;
@@ -46,17 +50,35 @@ public class MyCustomLinkedList<T> implements List<T> {
         }
         newNode.setNext(current.getNext());
         current.setNext(newNode);
+        tail = newNode;
         amountOfNodes++;
     }
 
     @Override
     public boolean addAll(Collection<? extends T> collection) {
-        return false;
+        for (T item : collection) {
+            add(item);
+        }
+        return true;
     }
 
     @Override
     public boolean addAll(int index, Collection<? extends T> collection) {
-        return false;
+        if (index < 0 || index >= amountOfNodes) {
+            throw new IndexOutOfBoundsException("Index must be between 0 and " + amountOfNodes);
+        }
+
+        Node<T> currentNode = head;
+        for (int i = 0; i < index - 1; i++) {
+            currentNode = currentNode.getNext();
+        }
+
+        MyCustomLinkedList<T> collectionLinkedList = new MyCustomLinkedList<>();
+        collectionLinkedList.addAll(collection);
+        collectionLinkedList.getTail().setNext(currentNode.getNext());
+        currentNode.setNext(collectionLinkedList.head);
+        amountOfNodes += collectionLinkedList.amountOfNodes;
+        return true;
     }
 
     /*
@@ -64,7 +86,6 @@ public class MyCustomLinkedList<T> implements List<T> {
      */
     @Override
     public T get(int index) {
-        // TODO: implement this
         if (amountOfNodes == 0) {
             throw new NoSuchElementException("SingleLinkedList is empty!");
         }
@@ -85,6 +106,7 @@ public class MyCustomLinkedList<T> implements List<T> {
     /*
      * --- REMOVE methods ---
      */
+    // TODO: implement remove methods
     @Override
     public boolean remove(Object objectToRemove) {
         return false;
@@ -112,7 +134,6 @@ public class MyCustomLinkedList<T> implements List<T> {
 
     @Override
     public boolean contains(Object objectToCheck) {
-        // TODO: implement this
         Node<T> current = head;
         while (current != null) {
             if (objectToCheck == null ? current.getData() == null : objectToCheck.equals(current.getData())) {
@@ -126,7 +147,6 @@ public class MyCustomLinkedList<T> implements List<T> {
 
     @Override
     public boolean containsAll(Collection<?> collection) {
-        // TODO: implement this
         for (Object item : collection) {
             if (!contains(item)) {
                 return false;
@@ -135,6 +155,7 @@ public class MyCustomLinkedList<T> implements List<T> {
         return true;
     }
 
+    // TODO: implement retainAll
     @Override
     public boolean retainAll(Collection<?> collection) {
         return false;
@@ -142,14 +163,12 @@ public class MyCustomLinkedList<T> implements List<T> {
 
     @Override
     public void clear() {
-        // TODO: implement this
         head = null;
         amountOfNodes = 0;
     }
 
     @Override
     public T set(int index, T data) {
-        // TODO: implement this
         if (index < 0 || index >= amountOfNodes) {
             throw new IndexOutOfBoundsException("Index " + index + " out of bounds for size " + amountOfNodes);
         }
@@ -167,13 +186,12 @@ public class MyCustomLinkedList<T> implements List<T> {
 
     @Override
     public int indexOf(Object objectToRetrieve) {
-        // TODO: implement this
         Node<T> current = head;
         int currentIndex = 0;
 
         while (currentIndex < amountOfNodes) {
             if (current.getData() == null ? objectToRetrieve == null
-                    : objectToRetrieve.equals(current.getData())) {
+                : objectToRetrieve.equals(current.getData())) {
                 return currentIndex;
             }
             current = current.getNext();
@@ -230,5 +248,9 @@ public class MyCustomLinkedList<T> implements List<T> {
             System.out.print(current);
             current = current.getNext();
         }
+    }
+
+    public Node<T> getTail() {
+        return tail;
     }
 }

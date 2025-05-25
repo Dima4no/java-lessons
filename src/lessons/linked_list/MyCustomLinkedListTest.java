@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Collection;
+import java.util.List;
 import org.junit.Test;
 
 public class MyCustomLinkedListTest {
@@ -73,5 +75,21 @@ public class MyCustomLinkedListTest {
         list.set(0, "e");
 
         assertEquals("e", list.get(0));
+    }
+
+    @Test
+    public void testAddAll_successfulyAdded() {
+        MyCustomLinkedList<Integer> list = new MyCustomLinkedList<>();
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        list.add(6);
+        list.add(7);
+
+        Collection<Integer> collection = List.of(4, 5);
+        list.addAll(3, collection);
+        assertEquals(7, list.size(), 0);
+        assertEquals(4, list.get(3), 0);
+        assertEquals(5, list.get(4), 0);
     }
 }
