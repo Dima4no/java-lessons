@@ -9,6 +9,7 @@ import java.util.*;
  */
 public class MyCustomLinkedList<T> implements List<T> {
 
+
     private Node<T> head;
     private int amountOfNodes;
 

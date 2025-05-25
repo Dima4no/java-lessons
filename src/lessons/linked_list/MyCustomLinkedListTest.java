@@ -1,12 +1,15 @@
 package lessons.linked_list;
 
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
-public class SingleLinkedListTest {
+import org.junit.Test;
+
+public class MyCustomLinkedListTest {
 
     @Test
-    public void testAddAndGet() {
+    public void testAdd_successfulyAdded() {
         MyCustomLinkedList<String> list = new MyCustomLinkedList<>();
         list.add("a");
         list.add("b");
@@ -16,7 +19,7 @@ public class SingleLinkedListTest {
     }
 
     @Test
-    public void testAddForIndex() {
+    public void testAdd_IndexIsInOrder() {
         MyCustomLinkedList<String> list = new MyCustomLinkedList<>();
         list.add("a");
         list.add("b");
@@ -27,7 +30,7 @@ public class SingleLinkedListTest {
     }
 
     @Test
-    public void testContainsTrue() {
+    public void testContains_successfulyFound() {
         MyCustomLinkedList<String> list = new MyCustomLinkedList<>();
         list.add("a");
         list.add("b");
@@ -37,7 +40,7 @@ public class SingleLinkedListTest {
     }
 
     @Test
-    public void testContainsFalse() {
+    public void testContains_notFound() {
         MyCustomLinkedList<String> list = new MyCustomLinkedList<>();
         list.add("a");
         list.add("b");
@@ -47,7 +50,7 @@ public class SingleLinkedListTest {
     }
 
     @Test
-    public void testClear() {
+    public void testClear_listCleared() {
         MyCustomLinkedList<String> list = new MyCustomLinkedList<>();
         list.add("a");
         list.add("b");
@@ -61,7 +64,7 @@ public class SingleLinkedListTest {
     }
 
     @Test
-    public void testSet() {
+    public void testSet_elementReplaced() {
         MyCustomLinkedList<String> list = new MyCustomLinkedList<>();
         list.add("a");
         list.add("b");
