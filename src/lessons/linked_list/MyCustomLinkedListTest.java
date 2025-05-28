@@ -78,7 +78,7 @@ public class MyCustomLinkedListTest {
     }
 
     @Test
-    public void testAddAll_successfulyAdded() {
+    public void testAddAll_successfullyAdd() {
         MyCustomLinkedList<Integer> list = new MyCustomLinkedList<>();
         list.add(1);
         list.add(2);
@@ -91,5 +91,17 @@ public class MyCustomLinkedListTest {
         assertEquals(7, list.size(), 0);
         assertEquals(4, list.get(3), 0);
         assertEquals(5, list.get(4), 0);
+    }
+
+    @Test
+    public void testGet_validIndex_returnsCorrectElement() {
+        MyCustomLinkedList<Integer> list = new MyCustomLinkedList<>();
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        list.add(4);
+        list.add(5);
+
+        assertEquals(Integer.valueOf(3), list.get(2));
     }
 }

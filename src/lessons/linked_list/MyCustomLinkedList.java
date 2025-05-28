@@ -109,17 +109,59 @@ public class MyCustomLinkedList<T> implements List<T> {
     // TODO: implement remove methods
     @Override
     public boolean remove(Object objectToRemove) {
+        if (head == null) {
+            return false;
+        }
+
+        if (Objects.equals(head.getData(), objectToRemove)) {
+            head = head.getNext();
+            return true;
+        }
+
+        Node<T> current = head;
+        while (current.getNext() != null) {
+            if (Objects.equals(current.getNext().getData(), objectToRemove)) {
+                current.setNext(current.getNext().getNext());
+                return true;
+            }
+            current = current.getNext();
+        }
         return false;
     }
 
     @Override
     public boolean removeAll(Collection<?> collection) {
-        return false;
+        boolean marker = false;
+        for (Object item : collection) {
+            while (contains(item)) {
+                remove(item);
+                marker = true;
+            }
+        }
+        return marker;
     }
 
     @Override
     public T remove(int index) {
-        return null;
+        if (index < 0 || index >= amountOfNodes) {
+            throw new IndexOutOfBoundsException("Index: " + index + " is incorrect!");
+        }
+
+        T result;
+
+        if (index == 0) {
+            result = head.getData();
+            head = head.getNext();
+        } else {
+            Node<T> current = head;
+            for (int i = 0; i < index - 1; i++) {
+                current = current.getNext();
+            }
+            result = current.getNext().getData();
+            current.setNext(current.getNext().getNext());
+        }
+        amountOfNodes--;
+        return result;
     }
 
     @Override
@@ -158,7 +200,17 @@ public class MyCustomLinkedList<T> implements List<T> {
     // TODO: implement retainAll
     @Override
     public boolean retainAll(Collection<?> collection) {
-        return false;
+        boolean marker = false;
+        Node<T> current = head;
+        while(current != null) {
+            Node<T> next = current.getNext();
+            if (!collection.contains(current.getData())) {
+                remove(current.getData());
+                marker = true;
+            }
+            current = next;
+        }
+        return marker;
     }
 
     @Override
@@ -198,7 +250,7 @@ public class MyCustomLinkedList<T> implements List<T> {
             currentIndex++;
         }
         return -1;
-    }
+    } 
 
     @Override
     public int lastIndexOf(Object objectToRetrieve) {
