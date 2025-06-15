@@ -1,5 +1,6 @@
 package homework.mvc_design_pattern;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class TaskView {
@@ -30,17 +31,30 @@ public class TaskView {
         System.out.println(message);
     }
 
-    public int readInt() {
-        System.out.println("Enter your choice: ");
+    public int readInt(String message) {
+        System.out.println(message);
         return Integer.parseInt(scanner.nextLine());
     }
 
-    public String readString() {
-        System.out.println("Enter task description: ");
+    public String readString(String message) {
+        System.out.println(message);
         String text = scanner.nextLine();
         if (text.isEmpty()) {
             text = scanner.nextLine();
         }
         return text;
+    }
+
+    public void displayTasks(List<Task> tasks) {
+        System.out.println("---------------------------");
+        System.out.println("The list of tasks");
+        if (tasks.isEmpty()) {
+            System.out.println("The list is empty!");
+        } else {
+            for (Task task : tasks) {
+                System.out.println(task);
+            }
+        }
+        System.out.println("---------------------------");
     }
 }

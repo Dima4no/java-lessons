@@ -9,7 +9,7 @@ public class Task {
     public Task(int id, String description) {
         this.id = id;
         this.description = description;
-        this.isCompleted = isCompleted;
+        this.isCompleted = false;
     }
 
     public int getId() {
@@ -24,10 +24,6 @@ public class Task {
         return isCompleted;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public void setDescription(String description) {
         this.description = description;
     }
@@ -38,6 +34,6 @@ public class Task {
 
     @Override
     public String toString() {
-        return "Task: " + id + ", " + description + isCompleted;
+        return "Task: " + id + ", " + description + " is " + (isCompleted ? "Done" : "Pending");
     }
 }
