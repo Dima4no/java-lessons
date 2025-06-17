@@ -3,6 +3,7 @@ package homework.mvc_design_pattern;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.UUID;
 
 public class TaskService {
 
@@ -12,15 +13,18 @@ public class TaskService {
         tasks = new ArrayList<>();
     }
 
-    public void addTask(Task task) {
+    public void addTask(Task task) throws TaskAlreadyExistsException {
+        if (tasks.contains(task)) {
+            throw new TaskAlreadyExistsException("Task with this description already exists!");
+        }
         tasks.add(task);
     }
 
-    public boolean removeTask(int id) {
+    public boolean removeTask(UUID id) {
         Iterator<Task> iterator = tasks.iterator();
         while (iterator.hasNext()) {
             Task task = iterator.next();
-            if (task.getId() == id) {
+            if (task.getId().equals(id)) {
                 iterator.remove();
                 return true;
             }
@@ -30,7 +34,7 @@ public class TaskService {
 
     public Task getTaskById(int id) {
         for (Task task : tasks) {
-            if (task.getId() == id) {
+            if (task.getId().equals(id)) {
                 return task;
             }
         }
@@ -39,7 +43,7 @@ public class TaskService {
 
     public boolean markTaskAsDone(int id) {
         for (Task task : tasks) {
-            if (task.getId() == id) {
+            if (task.getId().equals(id)) {
                 task.markAsDone();
                 return true;
             }

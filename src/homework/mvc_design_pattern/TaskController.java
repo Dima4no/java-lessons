@@ -1,28 +1,37 @@
 package homework.mvc_design_pattern;
 
 import java.util.List;
+import java.util.UUID;
 
 public class TaskController {
 
     private TaskService taskService;
     private TaskView taskView;
-    private int uniqueId;
 
     public TaskController() {
         this.taskService = new TaskService();
         this.taskView = new TaskView();
-        uniqueId = 1;
     }
 
     public void handleAddTask(String description) {
-        Task task = new Task(uniqueId++,description);
-        taskService.addTask(task);
+        Task task = new Task(description);
+        try {
+            taskService.addTask(task);
+        } catch (TaskAlreadyExistsException exception) {
+            taskView.displayMessage(exception.getMessage());
+        }
     }
 
-    public void handleRemoveTask(int id) {
-        taskService.removeTask(id);
+    public void handleRemoveTask(UUID id) {
+        boolean isRemoved = taskService.removeTask(id);
+        if (isRemoved) {
+            taskView.displayMessage("Task with id: " + id + " was successfully removed!");
+        } else {
+            taskView.displayMessage("Task with id: " + id + " was not found and was not removed!");
+        }
     }
 
+    // TODO: add UUID instead of int id
     public void handleMarkTaskAsDone(int id) {
         taskService.markTaskAsDone(id);
     }
@@ -58,8 +67,7 @@ public class TaskController {
             }
 
             if (choice == 2) {
-                handleRemoveTask(taskView.readInt("Enter the ID of the task"));
-                taskView.displayMessage("The task has been deleted!");
+                handleRemoveTask(UUID.fromString(taskView.readString("Enter the ID of the task")));
             }
 
             if (choice == 3) {

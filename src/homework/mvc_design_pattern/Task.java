@@ -1,19 +1,22 @@
 package homework.mvc_design_pattern;
 
+import java.util.UUID;
+
 public class Task {
 
-    private int id;
     private String description;
     private boolean isCompleted;
 
-    public Task(int id, String description) {
-        this.id = id;
+    private UUID uniqueID;
+
+    public Task(String description) {
+        uniqueID = UUID.randomUUID();
         this.description = description;
         this.isCompleted = false;
     }
 
-    public int getId() {
-        return id;
+    public UUID getId() {
+        return uniqueID;
     }
 
     public String getDescription() {
@@ -34,6 +37,16 @@ public class Task {
 
     @Override
     public String toString() {
-        return "Task: " + id + ", " + description + " is " + (isCompleted ? "Done" : "Pending");
+        return "Task: " + uniqueID + ", " + description + " is " + (isCompleted ? "Done" : "Pending");
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        } else {
+            Task taskToCompare = (Task) obj;
+            return taskToCompare.getDescription().equals(this.getDescription());
+        }
     }
 }
